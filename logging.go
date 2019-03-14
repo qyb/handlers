@@ -162,6 +162,11 @@ func buildCommonLogLine(req *http.Request, url url.URL, ts time.Time, status int
 		host = req.RemoteAddr
 	}
 
+	XRealIP := req.Header.Get("X-Real-IP")
+	if XRealIP != "" {
+		host = XRealIP
+	}
+
 	uri := req.RequestURI
 
 	// Requests using the CONNECT method over HTTP/2.0 must use
